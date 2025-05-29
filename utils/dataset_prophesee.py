@@ -136,15 +136,14 @@ class PropheseeDataset(Dataset):
 
     def _get_files_list(self) -> None:
         data_dir = os.path.join(self.root, self.dataset, self.split)
-        self.labels_files = glob.glob(data_dir + "/*.npy")
+        self.labels_files = sorted(glob.glob(data_dir + "/*.npy"))
         self.data_files = [p.replace("_bbox.npy", "_td.dat") for p in self.labels_files]
         if not len(self.labels_files):
             raise RuntimeError(
-                f"Directory '{data_dir}' does not contain data or data is invalid! I'm expecting: "
-                f"./data/{self.dataset}/{data_dir}/*_bbox.npy (and *_td.dat). "
+                f"Dataset directory '{data_dir}' does not contain data or data is invalid! I'm expecting: "
+                f"{self.dataset}/{data_dir}/*_bbox.npy (and *_td.dat). "
                 "The datasets can be downloaded from these links: "
-                "https://www.prophesee.ai/2020/01/24/prophesee-gen1-automotive-detection-dataset/ or "
-                "https://www.prophesee.ai/2020/11/24/automotive-megapixel-event-based-dataset/"
+                "https://www.prophesee.ai/2020/01/24/prophesee-gen1-automotive-detection-dataset/"
             )
 
     def _prepare_properties(self) -> None:
