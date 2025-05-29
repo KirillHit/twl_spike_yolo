@@ -1,0 +1,57 @@
+seed_everything: 42
+
+model:
+  class_path: model.Yolo
+  init_args:
+    model: l
+    num_classes: 2
+    in_channels: 2
+    loss_ratio: 0.0265
+    time_window: 8
+    iou_threshold: 0.45
+    learning_rate: 0.001
+    clip_grad: 1
+    dt: 0.002
+    init_weights: true
+    sizes: [[16, 32], [64, 128], [256, 512]]
+    aspect_ratios:
+      [[0.5, 1.0, 2.0, 5], [0.5, 1.0, 2.0, 5], [0.5, 1.0, 2.0, 5]]
+    load_model: "yolo8l_dsec_only_events"
+    plotter:
+      class_path: utils.Plotter
+      init_args:
+        threshold: 0.0
+        show_video: true
+        save_video: false
+        file_path: log
+        file_name: out
+
+data:
+  class_path: utils.DSECDataModule
+  init_args:
+    root: ../snn_for_object_detection/data/data
+    batch_size: 6
+    num_workers: 3
+    time_step_us: 1000
+    iter: false
+    encode: false
+
+trainer:
+  accelerator: gpu
+  strategy: auto
+  devices: -1
+  callbacks:
+    - class_path: lightning.pytorch.callbacks.ModelCheckpoint
+      init_args:
+        monitor: map_50
+        save_top_k: 3
+        mode: max
+    - class_path: lightning.pytorch.callbacks.ModelSummary
+      init_args:
+        max_depth: 3
+  deterministic: true
+  val_check_interval: 500
+  limit_val_batches: 100
+  limit_test_batches: 50
+  log_every_n_steps: 20
+  enable_checkpointing: true
