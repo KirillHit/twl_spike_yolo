@@ -10,7 +10,7 @@ import matplotlib.colors as mcolors
 from model.tools.generator import StateStorage
 from typing import List, Any, Optional, Dict, NamedTuple
 import norse.torch as snn
-from utils import PropheseeDataModule, COCODataModule
+from utils import PropheseeDataModule, DSECDataModule
 
 
 class Statics:
@@ -173,8 +173,20 @@ class Statics:
         self.fig.tight_layout()
 
 
+from pprint import pprint
+
+
+class MyCLI(LightningCLI):
+    def before_instantiate_classes(self):
+        pprint(self.config)
+        self.config["data"]["init_args"]["batch_size"] = 1
+        self.config["model"]["init_args"]["state_storage"] = True
+        self.config["trainer"]["limit_predict_batches"] = 1
+        pprint(self.config)
+
+
 if __name__ == "__main__":
-    cli = LightningCLI(
+    cli = MyCLI(
         model.Detector,
         L.LightningDataModule,
         subclass_mode_model=True,
@@ -182,13 +194,8 @@ if __name__ == "__main__":
         save_config_kwargs={"overwrite": True},
         run=False,
     )
-    
-    cli.trainer.limit_predict_batches = 1
-    cli.datamodule.batch_size = 1
-    cli.model.state_storage = True
-    cli.trainer.predict(
-        cli.model, datamodule=cli.datamodule, ckpt_path=".vscode/epoch=0-step=42500.ckpt"
-    )
+
+    cli.trainer.predict(cli.model, datamodule=cli.datamodule)
 
     stat = Statics()
     stat.process(cli.model.net.net)

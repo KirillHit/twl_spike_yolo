@@ -1,3 +1,7 @@
+"""
+Tool for assessing energy efficiency of models
+"""
+
 from lightning.pytorch.cli import LightningCLI
 import lightning as L
 import torch
@@ -131,7 +135,7 @@ class EstimateEnergy:
                     data, state[idx] = layer(data, state[idx])
                 else:
                     data = layer(data)
-                if ts < (time -  self.delta_time - 1):
+                if ts < (time - self.delta_time - 1):
                     continue
                 if isinstance(layer, LIFCell):
                     activity_list[idx] += self.compute_activity(data)
@@ -143,7 +147,7 @@ class EstimateEnergy:
                     if not flops_list[idx]:
                         flops_list[idx] = self.compute_flops(data, layer)
 
-        activity_list = [activity /  self.delta_time for activity in activity_list]
+        activity_list = [activity / self.delta_time for activity in activity_list]
 
         return flops_list, activity_list
 
@@ -184,11 +188,7 @@ if __name__ == "__main__":
     )
 
     cli.trainer.limit_test_batches = 2
-    cli.trainer.test(
-        cli.model,
-        datamodule=cli.datamodule,
-        ckpt_path=".neptune/yolol.ckpt",
-    )
+    cli.trainer.test(cli.model, datamodule=cli.datamodule)
 
     dataloader = cli.datamodule.test_dataloader()
 
