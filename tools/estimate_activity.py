@@ -1,15 +1,15 @@
 from lightning.pytorch.cli import LightningCLI
 import lightning as L
-from torch import nn
-import model
-from utils import PropheseeDataModule
 import torch
+from torch import nn
 from matplotlib import pyplot as plt
 import matplotlib.animation as animation
 import matplotlib.colors as mcolors
 from model.tools.generator import StateStorage
 from typing import List, Any, Optional, Dict, NamedTuple
 import norse.torch as snn
+import sys
+import model
 from utils import PropheseeDataModule, DSECDataModule
 
 
@@ -173,20 +173,9 @@ class Statics:
         self.fig.tight_layout()
 
 
-from pprint import pprint
-
-
-class MyCLI(LightningCLI):
-    def before_instantiate_classes(self):
-        pprint(self.config)
-        self.config["data"]["init_args"]["batch_size"] = 1
-        self.config["model"]["init_args"]["state_storage"] = True
-        self.config["trainer"]["limit_predict_batches"] = 1
-        pprint(self.config)
-
-
 if __name__ == "__main__":
-    cli = MyCLI(
+    sys.argv.extend(["--data.batch_size", "1", "--model.state_storage", "true"])
+    cli = LightningCLI(
         model.Detector,
         L.LightningDataModule,
         subclass_mode_model=True,
@@ -195,6 +184,7 @@ if __name__ == "__main__":
         run=False,
     )
 
+    cli.trainer.limit_predict_batches = 1
     cli.trainer.predict(cli.model, datamodule=cli.datamodule)
 
     stat = Statics()
