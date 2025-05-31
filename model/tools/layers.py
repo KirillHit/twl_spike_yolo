@@ -113,14 +113,14 @@ class Pool(gen.LayerGen):
     :external:class:`torch.nn.MaxPool2d`, :class:`SumPool2d`.
     """
 
-    def __init__(self, type: str, kernel_size: int = 2, stride: Optional[int] = None):
+    def __init__(self, pool_type: str, kernel_size: int = 2, stride: Optional[int] = None):
         """
-        :param type: Pooling type.
+        :param pool_type: Pooling type.
 
             - ``A`` - :external:class:`torch.nn.AvgPool2d`.
             - ``M`` - :external:class:`torch.nn.MaxPool2d`.
             - ``S`` - :class:`SumPool2d`.
-        :type type: str
+        :type pool_type: str
         :param kernel_size: The size of the window. Defaults to 2.
         :type kernel_size: int, optional
         :param stride: The stride of the window. Default value is kernel_size.
@@ -129,7 +129,7 @@ class Pool(gen.LayerGen):
         """
         self.kernel_size = kernel_size
         self.stride = stride if (stride is not None) else kernel_size
-        match type:
+        match pool_type:
             case "A":
                 self.pool = nn.AvgPool2d
             case "M":
@@ -137,7 +137,7 @@ class Pool(gen.LayerGen):
             case "S":
                 self.pool = SumPool2d
             case _:
-                raise ValueError(f'[ERROR]: Non-existent pool type "{type}"!')
+                raise ValueError(f'[ERROR]: Non-existent pool type "{pool_type}"!')
 
     def get(self, in_channels: int) -> Tuple[nn.Module, int]:
         return self.pool(
@@ -182,7 +182,7 @@ class Norm(gen.LayerGen):
     def get(self, in_channels: int) -> Tuple[nn.Module, int]:
         norm_layer = nn.BatchNorm2d(in_channels)
         if not self.bias:
-            norm_layer.bias = None
+            norm_layer.bias = None #XXX This works, but should be refactored to use affine=False
         return norm_layer, in_channels
 
 
@@ -263,7 +263,7 @@ class SiLU(gen.LayerGen):
 
 
 class Tanh(gen.LayerGen):
-    """SiLU layer generator
+    """Tanh layer generator
 
     Uses :external:class:`torch.nn.Tanh` module.
     """

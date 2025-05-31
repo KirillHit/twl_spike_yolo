@@ -1,3 +1,3 @@
 """
-Model configurations
+Network architectures for object detection models
 """

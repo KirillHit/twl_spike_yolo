@@ -1,5 +1,5 @@
 """
-Network configuration similar to yolo8
+Network configuration similar to yolo8, adapted for multimodal input
 """
 
 import torch
@@ -10,9 +10,10 @@ import model.tools.layers as l
 
 
 class MultimodalYolo(Detector):
-    """Generates a model similar to yolo8
+    """Generates a model similar to yolo8, adapted for multimodal input
 
-    See https://github.com/ultralytics/ultralytics/issues/189.
+    This class provides a network architecture that processes both static images (via a dedicated 
+    ANN branch) and event-based data, allowing for flexible and efficient multimodal fusion.
     """
 
     def __init__(self, model: str, *args, **kwargs):
@@ -35,12 +36,9 @@ class MultimodalYolo(Detector):
         self.image_model = gen.ModelGenerator(self.image_cfgs(), 3, self.hparams.init_weights)
         self.net = gen.ModelGenerator(self.get_cfgs(), self.hparams.in_channels, self.hparams.init_weights)
         self.load()
-
-    def reset(self) -> None:
-        self.image_feature.reset()
     
     def image_forward(self, image: torch.Tensor) -> None:
-        self.reset()
+        self.image_feature.reset()
         self.image_model(image)
 
     def image_cfgs(self) -> List[gen.LayerGen]:

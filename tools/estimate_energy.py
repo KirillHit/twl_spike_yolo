@@ -38,7 +38,8 @@ class EstimateEnergy:
             det.storage_cls.reset()
             det.storage_box.reset()
             if det.image_model is not None:
-                det.reset()
+                if hasattr(det, "image_feature"):
+                    det.image_feature.reset()
                 flops_encode = self.estimate_ann(
                     det.image_model, batch["images"][0, None].to(det.device)
                 )

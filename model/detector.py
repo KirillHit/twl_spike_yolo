@@ -2,7 +2,6 @@
 Basic object detector class
 """
 
-import os
 import torch
 from torch import nn
 from torch.nn import functional as F
@@ -26,8 +25,7 @@ import model.tools.generator as gen
 
 
 class Detector(L.LightningModule):
-    """
-    Basic object detector class
+    """Basic object detector class
 
     Implements the basic functions for calculating losses,
     training the network and generating predictions. The network model is passed
@@ -88,7 +86,8 @@ class Detector(L.LightningModule):
         :param aspect_ratios: List of aspect ratios of anchor boxes. ratio = height / width.
             Same format as sizes.
         :type aspect_ratios: List[List[float]], optional
-        #TODO load_model
+        :param load_model: The name of the model whose weights will be loaded.
+        :type load_model: str, optional
         :param plotter: Class for displaying results. Needed for the prediction step.
             Expects to receive a utils.Plotter object. Defaults to None.
         :type plotter: Plotter, optional
@@ -110,22 +109,17 @@ class Detector(L.LightningModule):
             box_format="xyxy", iou_type="bbox", backend="faster_coco_eval"
         )
 
-        """
-        The class expects the storage below to store the network results. 
-        This should be defined in the child class configuration.
-        """
+        # Storages for network results. Сhild classes should use these to store their outputs.
         self.storage_box = gen.Storage(auto_reset=False)
         self.storage_cls = gen.Storage(auto_reset=False)
         self.storage_feature = gen.Storage(auto_reset=False)
 
-        """
-        Models for handling static images and event data. 
-        Should be defined in child classes
-        """
+        # Models for handling static images and event data. Should be defined in child classes.
         self.image_model: gen.ModelGenerator | None = None
         self.net: gen.ModelGenerator | None = None
 
     def load(self):
+        """Loads model weights from HuggingFace Hub if a path is provided"""
         if not self.hparams.load_model:
             return
         path = hf_hub_download("KirillHit/twl_spike_yolo", self.hparams.load_model + ".safetensors")
@@ -147,22 +141,25 @@ class Detector(L.LightningModule):
     def events_forward(
         self, events: torch.Tensor, state: gen.ListState | None = None
     ) -> gen.ListState | None:
+        """Processes a single time step of event data"""
         self.storage_box.reset()
         self.storage_cls.reset()
         _, state = self.net(events, state)
-        self._create_ancors(events)
+        self._create_anchors(events)
         return state
 
     def image_forward(self, image: torch.Tensor) -> None:
+        """Processes a static image"""
         self.storage_box.reset()
         self.storage_cls.reset()
         self.image_model(image)
-        self._create_ancors(image)
-
-    def reset(self) -> None:
-        pass
+        self._create_anchors(image)
 
     def forward(self, batch: Dict[str, Any]) -> Tuple[torch.Tensor, torch.Tensor, torch.Tensor]:
+        """Main forward method
+
+        Handles both image and event data, processes the batch, and returns predictions.
+        """
         if "images" in batch and self.image_model is not None:
             self.image_forward(batch["images"])
 
@@ -172,6 +169,7 @@ class Detector(L.LightningModule):
             duration = events.shape[0]
             grad_time = duration - self.hparams.clip_grad if self.hparams.clip_grad >= 0 else 0
             for idx, ts in enumerate(events):
+                # Enable gradients only for the last frames if clip_grad is set
                 with torch.set_grad_enabled(self.training and (idx >= grad_time)):
                     state = self.events_forward(ts, state)
 
@@ -231,6 +229,8 @@ class Detector(L.LightningModule):
         if "images" in batch and self.image_model is not None:
             self.image_forward(batch["images"])
 
+        background = batch.get("src_image", batch.get("images", None))
+
         if self.net is not None:
             preds = []
             state = None
@@ -239,13 +239,7 @@ class Detector(L.LightningModule):
                 preds.append(self.predict())
             preds = list(zip(*preds))
             batch_size = batch["events"].size(1)
-        else:
-            preds = self.predict()
-            batch_size = batch["images"].size(0)
 
-        background = batch.get("src_image", batch.get("images", None))
-
-        if self.net is not None:
             for idx in range(batch_size):
                 back = background[idx] if background is not None else None
                 video = self._plot_events(
@@ -253,12 +247,14 @@ class Detector(L.LightningModule):
                 )
                 self.plotter(video, self.trainer.datamodule.hparams.time_step_us // 1000)
         else:
+            preds = self.predict()
             res = self._plot_static(None, background, preds, batch["targets"])
             numpy_image = (res.numpy()).astype(np.uint8)
             cv2_image = np.transpose(numpy_image, (1, 2, 0))
             self.plotter([cv2_image], 0)
 
     def predict(self) -> torch.Tensor:
+        """Returns processed predictions from storage, applying NMS"""
         if not len(self.storage_cls.storage):
             return torch.empty(0)
         anchors, cls, bbox = self._get_predictions()
@@ -273,6 +269,7 @@ class Detector(L.LightningModule):
         preds: torch.Tensor,
         labels: torch.Tensor,
     ) -> List[np.ndarray]:
+        """Creates a video visualization for event-based predictions"""
         video = []
         for ts_idx, ts in enumerate(events):
             out_preds = (
@@ -290,6 +287,7 @@ class Detector(L.LightningModule):
         preds: torch.Tensor,
         labels: torch.Tensor,
     ) -> torch.Tensor:
+        """Creates a static image visualization for predictions"""
         batch_size = labels.size(0) if events is None else events.size(1)
         out = []
         for idx in range(batch_size):
@@ -306,7 +304,8 @@ class Detector(L.LightningModule):
         res_events = make_grid(out, pad_value=255)
         return res_events
 
-    def _get_predictions(self):
+    def _get_predictions(self) -> Tuple[torch.Tensor, torch.Tensor, torch.Tensor]:
+        """Collects and reshapes class and box predictions from storage"""
         cls_preds = self.storage_cls.get()
         bbox_preds = self.storage_box.get()
 
@@ -321,36 +320,31 @@ class Detector(L.LightningModule):
         """Transforms the tensor so that each pixel retains channels values and smooths each batch"""
         return torch.flatten(torch.permute(pred, (0, 2, 3, 1)), start_dim=1)
 
-    def _concat_preds(self, preds: list[torch.Tensor]) -> torch.Tensor:
+    def _concat_preds(self, preds: List[torch.Tensor]) -> torch.Tensor:
         """Concatenating Predictions for Multiple Scales"""
         return torch.cat([self._flatten_pred(p) for p in preds], dim=1)
 
-    def _create_ancors(self, X: torch.Tensor):
-        if not hasattr(self, "anchors"):
-            self._anchors_calculate(X, self.storage_feature.get())
-            self.storage_feature.reset()
-            self.storage_feature.auto_reset = True
-
-    def _anchors_calculate(self, img: torch.Tensor, features_map: List[torch.Tensor]):
-        h, w = img.shape[-2:]
-        self.anchors = self.anchor_generator(ImageList(img, [img.shape[-2:]]), features_map)[0]
+    def _create_anchors(self, X: torch.Tensor) -> None:
+        """Creates anchors if not already present, using current feature maps"""
+        if hasattr(self, "anchors") or not len(self.storage_feature.storage):
+            return
+        features_map = self.storage_feature.get()
+        h, w = X.shape[-2:]
+        self.anchors = self.anchor_generator(ImageList(X, [X.shape[-2:]]), features_map)[0]
         self.anchors[:, 0] = self.anchors[:, 0] / w
         self.anchors[:, 1] = self.anchors[:, 1] / h
         self.anchors[:, 2] = self.anchors[:, 2] / w
         self.anchors[:, 3] = self.anchors[:, 3] / h
 
-    def _rand_start_time(self) -> int:
-        return (
-            torch.randint(0, self.hparams.time_window, (1,), requires_grad=False)
-            if self.hparams.time_window
-            else 0
-        )
+        self.storage_feature.reset()
+        self.storage_feature.auto_reset = True
 
     def _loss(
         self,
         preds: Tuple[torch.Tensor, torch.Tensor, torch.Tensor],
         labels: torch.Tensor,
     ) -> torch.Tensor:
+        """Computes the total loss (classification and bounding box regression)"""
         anchors, cls_preds, bbox_preds = preds
         bbox_offset, bbox_mask, class_labels = self.roi_blk(anchors, labels)
         _, _, num_classes = cls_preds.shape
@@ -372,6 +366,7 @@ class Detector(L.LightningModule):
         )
 
     def _map_compute(self):
+        """Computes and logs mAP metrics at the end of an epoch"""
         result = self.map_metric.compute()
         self.log_dict(
             {
@@ -394,6 +389,7 @@ class Detector(L.LightningModule):
         preds: Tuple[torch.Tensor, torch.Tensor, torch.Tensor],
         labels: torch.Tensor,
     ):
+        """Updates the mAP metric with current predictions and targets"""
         anchors, cls_preds, bbox_preds = preds
         prep_pred = box.multibox_detection(F.softmax(cls_preds, dim=2), bbox_preds, anchors)
         map_preds = []
@@ -417,8 +413,13 @@ class Detector(L.LightningModule):
         self.map_metric.update(map_preds, map_target)
 
     def _prepare_batch(self, batch: Dict[str, Any]) -> Dict[str, Any]:
+        """Prepares the batch for processing by truncating the time window if necessary"""
         events, targets = batch["events"], batch["targets"]
-        diff = self._rand_start_time()
+        diff = (
+            torch.randint(0, self.hparams.time_window, (1,), requires_grad=False)
+            if self.hparams.time_window
+            else 0
+        )
         if len(targets.shape) == 3:
             batch["events"] = events[diff:]
             return batch

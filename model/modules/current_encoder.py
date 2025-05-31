@@ -1,5 +1,5 @@
 """
-Constant current encoder
+Constant current LIF encoder
 """
 
 from typing import Tuple
@@ -12,6 +12,12 @@ from norse.torch.utils.clone import clone_tensor
 
 
 class ConstantCurrentLIFEncoderCell(SNNCell):
+    """Encodes scalar input as a spike train using a leaky integrate-and-fire (LIF) neuron model
+
+    The input is interpreted as a constant presynaptic current. The cell integrates the input
+    and emits a spike whenever the membrane potential crosses the threshold.
+    """
+
     def __init__(self, p: LIFParameters = LIFParameters(), **kwargs):
         super().__init__(
             activation=lif_current_encoder_step,
@@ -47,6 +53,11 @@ def lif_current_encoder_step(
     p: LIFParameters = LIFParameters(),
     dt: float = 0.001,
 ) -> Tuple[torch.Tensor, torch.Tensor]:
+    """Performs a single integration step for the constant current LIF encoder
+
+    Integrates the input current, applies the threshold, emits a spike if the threshold is crossed,
+    and resets the membrane potential accordingly.
+    """
     dv = dt * p.tau_mem_inv * input_current
     v_decayed = state.v + dv
     z = threshold(v_decayed - p.v_th, p.method, p.alpha)

@@ -96,7 +96,7 @@ class Storage(nn.Module):
         """
         :param auto_reset: If true, automatically clears the storage after the last call of
             the model generator. Set to False if you want the value to persist after a forward
-            pass of the model. Defaults to False
+            pass of the model. Defaults to True.
         :type auto_reset: bool, optional
         """
         super().__init__()
@@ -141,6 +141,7 @@ class Storage(nn.Module):
     def reset(self) -> None:
         """Resets storage"""
         self.storage = []
+        self.requests_idx = 0
 
     def get(self) -> List[torch.Tensor]:
         """Returns a list of saved tensors"""
@@ -148,7 +149,6 @@ class Storage(nn.Module):
         if self.auto_reset and self.requests_threshold:
             self.requests_idx += 1
             if self.requests_idx == self.requests_threshold:
-                self.requests_idx = 0
                 self.reset()
         return temp
 
@@ -170,20 +170,20 @@ class ResidualModule(nn.Module):
     It is used to create dense or residual networks.
     """
 
-    def __init__(self, type: str, storage: Storage):
+    def __init__(self, mode: str, storage: Storage):
         """
-        :param type: Method of combining:
+        :param mode: Method of combining:
 
             * "residual" - summarizes data
             * "dense" - combines data across channels
-        :type type: str
+        :type mode: str
         :param storage: Storage to merge
         :type storage: Storage
         """
         super().__init__()
         self.storage = storage
-        types = {"residual": self._residual, "dense": self._dense}
-        self.func = types[type]
+        modes = {"residual": self._residual, "dense": self._dense}
+        self.func = modes[mode]
 
     def forward(self, X=None) -> torch.Tensor:
         return self.func(self.storage.get())
@@ -238,7 +238,5 @@ class StateStorage(torch.nn.Module):
         state_dict = states._asdict()
         cls = states.__class__
         keys = list(state_dict.keys())
-        output_dict = {}
-        for key in keys:
-            output_dict[key] = getattr(states, key).cpu()
+        output_dict = {key: getattr(states, key).cpu() for key in keys}
         return cls(**output_dict)

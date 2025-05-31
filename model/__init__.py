@@ -1,5 +1,5 @@
 """
-Model implementation tools
+Model implementation
 """
 
 from model.detector import Detector
