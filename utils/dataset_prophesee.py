@@ -37,6 +37,22 @@ class PropheseeDataModule(L.LightningDataModule):
         time_step_us: int = 4000,
         resize: Optional[Union[List[int], int]] = None,
     ):
+        """
+        :param root: Root directory where the dataset is stored.
+        :type root: str
+        :param dataset: Name of the dataset (e.g., "gen1" or "1mpx").
+        :type dataset: str
+        :param batch_size: Number of samples per batch to load.
+        :type batch_size: int
+        :param num_workers: Number of subprocesses to use for data loading.
+        :type num_workers: int
+        :param num_steps: Number of time steps (frames) in each event tensor.
+        :type num_steps: int
+        :param time_step_us: Duration of each time step in microseconds.
+        :type time_step_us: int
+        :param resize: Target size for resizing input data (height, width) or None for no resizing.
+        :type resize: Optional[Union[List[int], int]]
+        """
         super().__init__()
         self.save_hyperparameters()
 

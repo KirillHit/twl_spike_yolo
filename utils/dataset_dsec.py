@@ -44,6 +44,22 @@ class DSECDataModule(L.LightningDataModule):
         encode: bool = False,
         resize: Optional[Union[int, List[int]]] = None,
     ):
+        """
+        :param root: Root directory where the DSEC dataset is stored.
+        :type root: str
+        :param batch_size: Number of samples per batch to load.
+        :type batch_size: int
+        :param num_workers: Number of subprocesses to use for data loading.
+        :type num_workers: int
+        :param time_step_us: Duration of each time step in microseconds.
+        :type time_step_us: int
+        :param iter: If True, use iterable dataset for distributed/multi-worker loading.
+        :type iter: bool
+        :param encode: If True, apply current-based encoding to images.
+        :type encode: bool
+        :param resize: Target size for resizing input data (height, width) or None for no resizing.
+        :type resize: Optional[Union[int, List[int]]]
+        """
         super().__init__()
         self.save_hyperparameters()
         self.remap = {

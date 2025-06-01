@@ -184,7 +184,7 @@ class Plotter:
         imgs = [Image.fromarray(video[idx]) for idx in range(0, len(video), step)]
         # duration is the number of milliseconds between frames; this is 40 frames per second
         imgs[0].save(
-            os.path.join(self.file_path, self.file_name + self.gif_idx + ".gif"),
+            os.path.join(self.file_path, self.file_name + str(self.gif_idx) + ".gif"),
             save_all=True,
             append_images=imgs[1:],
             duration=50,
