@@ -20,7 +20,7 @@ All dependencies are provided in the `environment.yml` file. Main dependencies: 
 
 This project uses two datasets for event-based object detection:
 
-- [**Gen1**]((https://www.prophesee.ai/2020/01/24/prophesee-gen1-automotive-detection-dataset/))  
+- [**Gen1**](https://www.prophesee.ai/2020/01/24/prophesee-gen1-automotive-detection-dataset/)  
   Large-scale event-based detection dataset collected with the ATIS sensor in real driving scenarios. Contains annotated events with timestamps and bounding boxes for cars and pedestrians.
 
 - [**DSEC-detection**](https://dsec.ifi.uzh.ch/dsec-detection/)  
