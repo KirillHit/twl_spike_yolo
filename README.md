@@ -3,7 +3,7 @@
 **TWL (Time Window based Learning) Spike Yolo** is a spiking neural network (SNN) for object detection with event-based cameras. The model is built on the YOLOv8 architecture, adapted to process event streams. This approach enables continuous data processing with low latency and high energy efficiency. The project also explores the use of multimodal data, combining event-based and frame-based inputs to improve detection performance in challenging scenarios.
 
 <p align="center">
-  <img src="https://i.imgur.com/SbCh9d3.gif" alt="gif"><br>
+  <img src="https://cdn.jsdelivr.net/gh/KirillHit/media@master/twl_spike_yolo/gen1_example.gif" alt="gif"><br>
   <em>Demonstration of model performance on the Gen1 dataset</em>
 </p>
 
@@ -70,7 +70,7 @@ python3 -m tools.estimate_activity --config config/{model_name}.yaml
 ```
 
 <p align="center">
-  <img src="https://i.imgur.com/avpjgSV.gif" width="500"><br>
+  <img src="https://cdn.jsdelivr.net/gh/KirillHit/media@master/twl_spike_yolo/activity.gif" width="500"><br>
   <em>Demonstration of neuron activity in one of the network layers</em>
 </p>
 
