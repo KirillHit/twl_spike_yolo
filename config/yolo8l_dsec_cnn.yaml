@@ -29,7 +29,7 @@ model:
 data:
   class_path: utils.DSECDataModule
   init_args:
-    root: ../snn_for_object_detection/data/data
+    root: ./data/dsec
     batch_size: 6
     num_workers: 3
     time_step_us: 1000

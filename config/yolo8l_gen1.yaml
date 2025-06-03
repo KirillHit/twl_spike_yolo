@@ -28,8 +28,7 @@ model:
 data:
   class_path: utils.PropheseeDataModule
   init_args:
-    root: ../snn_for_object_detection/data
-    dataset: gen1
+    root: ./data/gen1
     batch_size: 8
     num_workers: 4
     num_steps: 42

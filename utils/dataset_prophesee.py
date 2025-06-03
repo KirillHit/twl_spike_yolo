@@ -25,12 +25,11 @@ def _collate_data(batch):
 
 
 class PropheseeDataModule(L.LightningDataModule):
-    """Module for working with GEN1 and 1MPX dataset"""
+    """Module for working with GEN1 dataset"""
 
     def __init__(
         self,
         root: str = "./data",
-        dataset: str = "gen1",
         batch_size: int = 4,
         num_workers: int = 1,
         num_steps: int = 42,
@@ -40,8 +39,6 @@ class PropheseeDataModule(L.LightningDataModule):
         """
         :param root: Root directory where the dataset is stored.
         :type root: str
-        :param dataset: Name of the dataset (e.g., "gen1" or "1mpx").
-        :type dataset: str
         :param batch_size: Number of samples per batch to load.
         :type batch_size: int
         :param num_workers: Number of subprocesses to use for data loading.
@@ -70,7 +67,6 @@ class PropheseeDataModule(L.LightningDataModule):
 
     def _prepare_dataset(self, split: str) -> Dataset:
         return PropheseeDataset(
-            dataset=self.hparams.dataset,
             root=self.hparams.root,
             split=split,
             num_steps=self.hparams.num_steps,
@@ -104,7 +100,6 @@ class PropheseeDataModule(L.LightningDataModule):
 class PropheseeDataset(Dataset):
     def __init__(
         self,
-        dataset: str,
         root: str,
         split: str,
         num_steps: int = 32,
@@ -113,7 +108,7 @@ class PropheseeDataset(Dataset):
         seed: Optional[int] = None,
     ):
         super().__init__()
-        self.dataset, self.root, self.split = dataset, root, split
+        self.root, self.split = root, split
         self.num_steps, self.time_step_us = num_steps, time_step_us
         self.resize = resize
 
@@ -151,13 +146,13 @@ class PropheseeDataset(Dataset):
         return events, labels
 
     def _get_files_list(self) -> None:
-        data_dir = os.path.join(self.root, self.dataset, self.split)
+        data_dir = os.path.join(self.root, self.split)
         self.labels_files = sorted(glob.glob(data_dir + "/*.npy"))
         self.data_files = [p.replace("_bbox.npy", "_td.dat") for p in self.labels_files]
         if not len(self.labels_files):
             raise RuntimeError(
                 f"Dataset directory '{data_dir}' does not contain data or data is invalid! I'm expecting: "
-                f"{self.dataset}/{data_dir}/*_bbox.npy (and *_td.dat). "
+                f"{data_dir}/<train/test/val>/*_bbox.npy (and *_td.dat). "
                 "The datasets can be downloaded from these links: "
                 "https://www.prophesee.ai/2020/01/24/prophesee-gen1-automotive-detection-dataset/"
             )
