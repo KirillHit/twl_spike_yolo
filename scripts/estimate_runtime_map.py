@@ -5,7 +5,7 @@ import numpy as np
 from typing import Tuple, Optional, List, Union, Generator
 from torch.utils.data import IterableDataset, DataLoader
 from torchvision.transforms import v2
-from prophesee_toolbox.src.io.psee_loader import PSEELoader
+from utils.prophesee_toolbox.src.io.psee_loader import PSEELoader
 import model as md
 from utils.plotter import Plotter
 import cv2

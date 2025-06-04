@@ -14,7 +14,14 @@ A link to the article will be added here after publication.
 
 ## Requirements
 
-All dependencies are provided in the `environment.yml` file. Main dependencies: [PyTorch](https://pytorch.org/), [Norse](https://github.com/norse/norse), [Lightning](https://lightning.ai/), [Faster-COCO-Eval](https://github.com/MiXaiLL76/faster_coco_eval)
+All dependencies are provided in the `environment.yml` file.  
+Main dependencies: 
+[PyTorch](https://pytorch.org/), 
+[Norse](https://github.com/norse/norse), 
+[Lightning](https://lightning.ai/), 
+[Faster-COCO-Eval](https://github.com/MiXaiLL76/faster_coco_eval), 
+[OpenCV](https://opencv.org/), 
+[matplotlib](https://matplotlib.org/).
 
 ## Datasets
 
@@ -41,7 +48,34 @@ This project uses two datasets for event-based object detection:
    ```
 
 3. **Prepare datasets**  
-   Download and extract the required dataset(s). By default, the dataset path is assumed to be `./data`. You can override this by specifying the path in the config file under the `data.root` parameter, or by passing it at runtime as `--data.root={dataset_folder_path}`.
+   Download and extract the required dataset(s). By default, the dataset path is assumed to be `./data`.  
+   The `data` folder should contain subfolders for each dataset you want to use (e.g., `gen1`, `dsec`).
+
+   Example for **Gen1**:
+   ```
+   data/gen1/
+     ├── train/
+     ├── val/
+     └── test/
+         ├── 17-04-04_11-00-13_cut_15_183500000_243500000_bbox.npy
+         ├── 17-04-04_11-00-13_cut_15_183500000_243500000_td.dat
+         └── ...
+   ```
+
+   Example for **DSEC-detection**:
+   ```
+   data/dsec/
+     ├── train/
+     │   ├── zurich_city_16/
+     │   ├── zurich_city_17/
+     │   └── ...
+     └── test/
+         ├── thun_02_a/
+         └── ...
+   ```
+   Make sure your extracted datasets follow these structures so that the code can find and load the data correctly.
+
+   You can override the dataset path by specifying it in the config file under the `data.root` parameter, or by passing it at runtime as `--data.root={dataset_folder_path}`.
 
 4. **Train, validate, test, or run prediction with a specific config**
    ```bash
@@ -53,7 +87,7 @@ This project uses two datasets for event-based object detection:
 
 ## Model evaluation and analysis tools
 
-The `tools` folder contains scripts for evaluating and analyzing models:
+The `scripts` folder contains scripts for evaluating and analyzing models:
 
 - **estimate_energy.py** — estimates the energy efficiency of a model using the provided config.
 - **estimate_activity.py** — analyzes neuron activity in the network layers.
@@ -61,12 +95,12 @@ The `tools` folder contains scripts for evaluating and analyzing models:
 
 Example usage for energy estimation:
 ```bash
-python3 -m tools.estimate_energy --config config/{model_name}.yaml
+python3 -m scripts.estimate_energy --config config/{model_name}.yaml
 ```
 
 The example below shows neuron activity visualization obtained using `estimate_activity.py`:
 ```bash
-python3 -m tools.estimate_activity --config config/{model_name}.yaml
+python3 -m scripts.estimate_activity --config config/{model_name}.yaml
 ```
 
 <p align="center">
