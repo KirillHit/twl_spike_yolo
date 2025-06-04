@@ -1,7 +1,9 @@
 name: twl_spike_yolo
 channels:
-  - conda-forge
   - defaults
+  - conda-forge
+  - https://repo.anaconda.com/pkgs/main
+  - https://repo.anaconda.com/pkgs/r
 dependencies:
   - _libgcc_mutex=0.1=main
   - _openmp_mutex=5.1=1_gnu
@@ -62,17 +64,22 @@ dependencies:
   - zstd=1.5.7=hb8e6e7a_2
   - pip:
       - git+https://github.com/KirillHit/dsec-det
+      - accessible-pygments==0.0.5
       - aiohappyeyeballs==2.6.1
       - aiohttp==3.12.4
       - aiosignal==1.3.2
+      - alabaster==1.0.0
       - antlr4-python3-runtime==4.9.3
       - attrs==25.3.0
+      - babel==2.17.0
+      - beautifulsoup4==4.13.4
       - bitsandbytes==0.46.0
       - certifi==2025.4.26
       - charset-normalizer==3.4.2
       - contourpy==1.3.2
       - cycler==0.12.1
       - docstring-parser==0.16
+      - docutils==0.21.2
       - dsec-det==0.0.0
       - faster-coco-eval==1.6.6
       - filelock==3.18.0
@@ -83,6 +90,7 @@ dependencies:
       - huggingface-hub==0.32.2
       - hydra-core==1.3.2
       - idna==3.10
+      - imagesize==1.4.1
       - importlib-resources==6.5.2
       - jinja2==3.1.6
       - jsonargparse==4.40.0
@@ -93,9 +101,11 @@ dependencies:
       - markdown-it-py==3.0.0
       - markupsafe==3.0.2
       - matplotlib==3.10.3
+      - mdit-py-plugins==0.4.2
       - mdurl==0.1.2
       - mpmath==1.3.0
       - multidict==6.4.4
+      - myst-parser==4.0.1
       - narwhals==1.41.0
       - networkx==3.4.2
       - nir==1.0.5
@@ -125,6 +135,7 @@ dependencies:
       - propcache==0.3.1
       - protobuf==6.31.1
       - pycocotools==2.0.8
+      - pydata-sphinx-theme==0.15.4
       - pygments==2.19.1
       - pyparsing==3.2.3
       - python-dateutil==2.9.0.post0
@@ -133,10 +144,22 @@ dependencies:
       - pyyaml==6.0.2
       - requests==2.32.3
       - rich==13.9.4
+      - roman-numerals-py==3.1.0
       - safetensors==0.5.3
       - seaborn==0.13.2
       - six==1.17.0
+      - snowballstemmer==3.0.1
+      - soupsieve==2.7
+      - sphinx==8.2.3
+      - sphinx-book-theme==1.1.4
+      - sphinxcontrib-applehelp==2.0.0
+      - sphinxcontrib-devhelp==2.0.0
+      - sphinxcontrib-htmlhelp==2.1.0
+      - sphinxcontrib-jsmath==1.0.1
+      - sphinxcontrib-qthelp==2.0.0
+      - sphinxcontrib-serializinghtml==2.0.0
       - sympy==1.14.0
+      - tabulate==0.9.0
       - tensorboardx==2.6.2.2
       - torch==2.7.0
       - torchaudio==2.7.0
@@ -150,4 +173,3 @@ dependencies:
       - tzdata==2025.2
       - urllib3==2.4.0
       - yarl==1.20.0
-      - tabulate==0.9.0
