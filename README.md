@@ -7,10 +7,11 @@
   <em>Demonstration of model performance on the Gen1 dataset</em>
 </p>
 
+For a detailed explanation of the method, see the [article](https://doi.org/10.1007/978-3-032-07690-8_10).
+
 ## Citation
 
-A publication with a detailed explanation is planned and will be available soon.  
-A link to the article will be added here after publication.
+Khitushkin, K.S., Isakov, T.T., Bakhshiev, A.V. (2026). Using Spiking Neural Networks for Event and Multimodal Data Processing in Object Detection Tasks. In: Kryzhanovsky, B., Dunin-Barkowski, W., Redko, V., Tiumentsev, Y., Klimov, V.V. (eds) Advances in Neural Computation, Machine Learning, and Cognitive Research IX. NEUROINFORMATICS 2025. Studies in Computational Intelligence, vol 1241. Springer, Cham. https://doi.org/10.1007/978-3-032-07690-8_10
 
 ## Requirements
 
@@ -107,8 +108,3 @@ python3 -m scripts.estimate_activity --config config/{model_name}.yaml
   <img src="https://github.com/KirillHit/media/blob/main/twl_spike_yolo/activity.gif?raw=true" width="500"><br>
   <em>Demonstration of neuron activity in one of the network layers</em>
 </p>
-
-## Results
-
-Results and evaluation metrics will be described here after publication.
-
