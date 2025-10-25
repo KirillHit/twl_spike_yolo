@@ -1,0 +1,662 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" data-theme="dark">
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>scripts.estimate_energy &#8212; TWL Spike Yolo v0.1.0 documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "dark";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "dark";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../../_static/documentation_options.js?v=d47532a6"></script>
+    <script src="../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '_modules/scripts/estimate_energy';</script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="dark">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">TWL Spike Yolo v0.1.0 documentation</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Content</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../readme.html">Quick Start</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../pages/config.html">Configuration files</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../api.html">API</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../_autosummary/model.html">model</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../_autosummary/model.detector.html">model.detector</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../_autosummary/model.detector.Detector.html">model.detector.Detector</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../_autosummary/model.modules.html">model.modules</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../_autosummary/model.modules.current_encoder.html">model.modules.current_encoder</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../_autosummary/model.modules.lstm.html">model.modules.lstm</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../_autosummary/model.modules.sli.html">model.modules.sli</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../_autosummary/model.modules.sum_pool.html">model.modules.sum_pool</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../_autosummary/model.modules.synapse.html">model.modules.synapse</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../_autosummary/model.nets.html">model.nets</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../_autosummary/model.nets.multimodal_yolo.html">model.nets.multimodal_yolo</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../_autosummary/model.nets.yolo.html">model.nets.yolo</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../_autosummary/model.tools.html">model.tools</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../_autosummary/model.tools.generator.html">model.tools.generator</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../_autosummary/model.tools.layers.html">model.tools.layers</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../_autosummary/utils.html">utils</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../_autosummary/utils.box.html">utils.box</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../_autosummary/utils.box.box_center_to_corner.html">utils.box.box_center_to_corner</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../_autosummary/utils.box.box_corner_to_center.html">utils.box.box_corner_to_center</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../_autosummary/utils.box.box_iou.html">utils.box.box_iou</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../_autosummary/utils.box.multibox_detection.html">utils.box.multibox_detection</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../_autosummary/utils.box.nms.html">utils.box.nms</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../_autosummary/utils.box.offset_boxes.html">utils.box.offset_boxes</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../_autosummary/utils.box.offset_inverse.html">utils.box.offset_inverse</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../_autosummary/utils.dataset_dsec.html">utils.dataset_dsec</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../_autosummary/utils.dataset_dsec.CurrentEncode.html">utils.dataset_dsec.CurrentEncode</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../_autosummary/utils.dataset_dsec.DSECDataModule.html">utils.dataset_dsec.DSECDataModule</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../_autosummary/utils.dataset_dsec.DSECDataset.html">utils.dataset_dsec.DSECDataset</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../_autosummary/utils.dataset_dsec.DSECDatasetIter.html">utils.dataset_dsec.DSECDatasetIter</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../_autosummary/utils.dataset_dsec.Gamma.html">utils.dataset_dsec.Gamma</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../_autosummary/utils.dataset_dsec.ImageGradient.html">utils.dataset_dsec.ImageGradient</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../_autosummary/utils.dataset_prophesee.html">utils.dataset_prophesee</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../_autosummary/utils.dataset_prophesee.PropheseeDataModule.html">utils.dataset_prophesee.PropheseeDataModule</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../_autosummary/utils.dataset_prophesee.PropheseeDataset.html">utils.dataset_prophesee.PropheseeDataset</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../_autosummary/utils.plotter.html">utils.plotter</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../_autosummary/utils.plotter.Plotter.html">utils.plotter.Plotter</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../_autosummary/utils.roi.html">utils.roi</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../_autosummary/utils.roi.RoI.html">utils.roi.RoI</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../_autosummary/scripts.html">scripts</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../_autosummary/scripts.estimate_activity.html">scripts.estimate_activity</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../_autosummary/scripts.estimate_activity.Statics.html">scripts.estimate_activity.Statics</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../_autosummary/scripts.estimate_energy.html">scripts.estimate_energy</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../_autosummary/scripts.estimate_energy.EstimateEnergy.html">scripts.estimate_energy.EstimateEnergy</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../_autosummary/scripts.estimate_runtime_map.html">scripts.estimate_runtime_map</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../_autosummary/scripts.estimate_runtime_map.map_estimate.html">scripts.estimate_runtime_map.map_estimate</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../_autosummary/scripts.estimate_runtime_map.PropheseeRuntimeDataset.html">scripts.estimate_runtime_map.PropheseeRuntimeDataset</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+<a href="https://github.com/KirillHit/twl_spike_yolo" target="_blank"
+   class="btn btn-sm btn-source-repository-button"
+   title="Source repository"
+   data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+
+</a>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1></h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <h1>Source code for scripts.estimate_energy</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Tool for assessing energy efficiency of models</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">lightning.pytorch.cli</span><span class="w"> </span><span class="kn">import</span> <span class="n">LightningCLI</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">lightning</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">L</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">torch</span><span class="w"> </span><span class="kn">import</span> <span class="n">nn</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">norse.torch</span><span class="w"> </span><span class="kn">import</span> <span class="n">LIFCell</span><span class="p">,</span> <span class="n">LICell</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">model.tools.generator</span><span class="w"> </span><span class="kn">import</span> <span class="n">ModelGenerator</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">tabulate</span><span class="w"> </span><span class="kn">import</span> <span class="n">tabulate</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">List</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">tqdm</span><span class="w"> </span><span class="kn">import</span> <span class="n">tqdm</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">model</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">PropheseeDataModule</span><span class="p">,</span> <span class="n">DSECDataModule</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">statistics</span><span class="w"> </span><span class="kn">import</span> <span class="n">mean</span>
+
+
+<div class="viewcode-block" id="EstimateEnergy">
+<a class="viewcode-back" href="../../_autosummary/scripts.estimate_energy.EstimateEnergy.html#scripts.estimate_energy.EstimateEnergy">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">EstimateEnergy</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">e_mac</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">4.6</span><span class="p">,</span> <span class="n">e_ac</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.9</span><span class="p">,</span> <span class="n">delta_time</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span> <span class="n">quiet</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        :param e_mac: energy cost of MAC operation in pJ, defaults to 4.6</span>
+<span class="sd">        :type e_mac: float, optional</span>
+<span class="sd">        :param e_ac: energy cost of AC operation in pJ, defaults to 0.9</span>
+<span class="sd">        :type e_ac: float, optional</span>
+<span class="sd">        :param delta_time: The number of the last steps used to estimate energy consumption.</span>
+<span class="sd">            This is necessary to account for the network&#39;s operation only in its steady state.</span>
+<span class="sd">            Defaults to 10</span>
+<span class="sd">        :type delta_time: int, optional</span>
+<span class="sd">        :param quiet: Print detailed information for each example, defaults to false</span>
+<span class="sd">        :type quiet: bool, optional</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">e_mac</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">e_ac</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">delta_time</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">quiet</span> <span class="o">=</span> <span class="n">e_mac</span><span class="p">,</span> <span class="n">e_ac</span><span class="p">,</span> <span class="n">delta_time</span><span class="p">,</span> <span class="n">quiet</span>
+
+<div class="viewcode-block" id="EstimateEnergy.process">
+<a class="viewcode-back" href="../../_autosummary/scripts.estimate_energy.EstimateEnergy.html#scripts.estimate_energy.EstimateEnergy.process">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">process</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">det</span><span class="p">:</span> <span class="n">model</span><span class="o">.</span><span class="n">Detector</span><span class="p">,</span> <span class="n">batch</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">):</span>
+        <span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">no_grad</span><span class="p">():</span>
+            <span class="n">flops_encode</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="n">det</span><span class="o">.</span><span class="n">storage_cls</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
+            <span class="n">det</span><span class="o">.</span><span class="n">storage_box</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">det</span><span class="o">.</span><span class="n">image_model</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">det</span><span class="p">,</span> <span class="s2">&quot;image_feature&quot;</span><span class="p">):</span>
+                    <span class="n">det</span><span class="o">.</span><span class="n">image_feature</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
+                <span class="n">flops_encode</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">estimate_ann</span><span class="p">(</span>
+                    <span class="n">det</span><span class="o">.</span><span class="n">image_model</span><span class="p">,</span> <span class="n">batch</span><span class="p">[</span><span class="s2">&quot;images&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">,</span> <span class="kc">None</span><span class="p">]</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">det</span><span class="o">.</span><span class="n">device</span><span class="p">)</span>
+                <span class="p">)</span>
+            <span class="n">flops_list</span><span class="p">,</span> <span class="n">activity_list</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">estimate_snn</span><span class="p">(</span>
+                <span class="n">det</span><span class="o">.</span><span class="n">net</span><span class="p">,</span> <span class="n">batch</span><span class="p">[</span><span class="s2">&quot;events&quot;</span><span class="p">][:,</span> <span class="mi">0</span><span class="p">,</span> <span class="kc">None</span><span class="p">]</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">det</span><span class="o">.</span><span class="n">device</span><span class="p">)</span>
+            <span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">compare</span><span class="p">(</span>
+            <span class="n">det</span><span class="o">.</span><span class="n">net</span><span class="p">,</span> <span class="n">flops_list</span><span class="p">,</span> <span class="n">activity_list</span><span class="p">,</span> <span class="n">flops_encode</span> <span class="o">/</span> <span class="n">batch</span><span class="p">[</span><span class="s2">&quot;events&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+        <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="EstimateEnergy.compare">
+<a class="viewcode-back" href="../../_autosummary/scripts.estimate_energy.EstimateEnergy.html#scripts.estimate_energy.EstimateEnergy.compare">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">compare</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">model</span><span class="p">:</span> <span class="n">ModelGenerator</span><span class="p">,</span>
+        <span class="n">flops_list</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">],</span>
+        <span class="n">activity_list</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">],</span>
+        <span class="n">ann_encode</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="n">table</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="n">snn_flops</span><span class="p">,</span> <span class="n">ann_flops</span><span class="p">,</span> <span class="n">decode_flops</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">layer</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">net</span><span class="p">):</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">layer</span><span class="p">,</span> <span class="n">LIFCell</span><span class="p">):</span>
+                <span class="n">activity</span> <span class="o">=</span> <span class="n">activity_list</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span>
+                <span class="n">flops</span> <span class="o">=</span> <span class="n">flops_list</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span>
+                <span class="n">snn_flops</span> <span class="o">+=</span> <span class="n">flops</span> <span class="o">*</span> <span class="n">activity</span>
+                <span class="n">ann_flops</span> <span class="o">+=</span> <span class="n">flops</span>
+                <span class="n">table</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">idx</span><span class="p">,</span> <span class="n">snn_flops</span><span class="p">,</span> <span class="n">flops</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">e_ac</span><span class="p">,</span> <span class="n">activity</span><span class="p">))</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">layer</span><span class="p">,</span> <span class="n">LICell</span><span class="p">):</span>
+                <span class="n">activity</span> <span class="o">=</span> <span class="n">activity_list</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span>
+                <span class="n">flops</span> <span class="o">=</span> <span class="n">flops_list</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span>
+                <span class="n">decode</span> <span class="o">=</span> <span class="n">flops_list</span><span class="p">[</span><span class="n">idx</span> <span class="o">+</span> <span class="mi">2</span><span class="p">]</span>
+                <span class="n">snn_flops</span> <span class="o">+=</span> <span class="n">flops</span> <span class="o">*</span> <span class="n">activity</span>
+                <span class="n">decode_flops</span> <span class="o">+=</span> <span class="n">decode</span>
+                <span class="n">ann_flops</span> <span class="o">+=</span> <span class="n">decode</span>
+                <span class="n">table</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">idx</span><span class="p">,</span> <span class="n">snn_flops</span><span class="p">,</span> <span class="n">flops</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">e_ac</span> <span class="o">+</span> <span class="n">decode</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">e_mac</span><span class="p">,</span> <span class="n">activity</span><span class="p">))</span>
+
+        <span class="n">snn_energy</span> <span class="o">=</span> <span class="n">snn_flops</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">e_ac</span> <span class="o">+</span> <span class="n">decode_flops</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">e_mac</span> <span class="o">+</span> <span class="n">ann_encode</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">e_mac</span>
+        <span class="n">ann_energy</span> <span class="o">=</span> <span class="n">ann_flops</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">e_mac</span>
+        <span class="n">mean_activity</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">activity_list</span><span class="p">)</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">table</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">quiet</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">print_info</span><span class="p">(</span><span class="n">table</span><span class="p">,</span> <span class="n">ann_flops</span><span class="p">,</span> <span class="n">snn_flops</span><span class="p">,</span> <span class="n">snn_energy</span><span class="p">,</span> <span class="n">ann_energy</span><span class="p">,</span> <span class="n">activity</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">snn_energy</span><span class="p">,</span> <span class="n">ann_energy</span><span class="p">,</span> <span class="n">mean_activity</span></div>
+
+
+<div class="viewcode-block" id="EstimateEnergy.print_info">
+<a class="viewcode-back" href="../../_autosummary/scripts.estimate_energy.EstimateEnergy.html#scripts.estimate_energy.EstimateEnergy.print_info">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">print_info</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">layers</span><span class="p">,</span> <span class="n">ann_flops</span><span class="p">,</span> <span class="n">snn_flops</span><span class="p">,</span> <span class="n">snn_energy</span><span class="p">,</span> <span class="n">ann_energy</span><span class="p">,</span> <span class="n">activity</span><span class="p">):</span>
+        <span class="n">diff_flops</span> <span class="o">=</span> <span class="n">ann_flops</span> <span class="o">-</span> <span class="n">snn_flops</span>
+        <span class="n">diff_energy</span> <span class="o">=</span> <span class="n">ann_energy</span> <span class="o">-</span> <span class="n">snn_energy</span>
+
+        <span class="nb">print</span><span class="p">(</span>
+            <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">List of layers:</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span>
+            <span class="n">tabulate</span><span class="p">(</span>
+                <span class="n">layers</span><span class="p">,</span>
+                <span class="n">headers</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Idx&quot;</span><span class="p">,</span> <span class="s2">&quot;FLOPS&quot;</span><span class="p">,</span> <span class="s2">&quot;Energy (pJ)&quot;</span><span class="p">,</span> <span class="s2">&quot;Activity&quot;</span><span class="p">],</span>
+                <span class="n">tablefmt</span><span class="o">=</span><span class="s2">&quot;simple&quot;</span><span class="p">,</span>
+                <span class="n">floatfmt</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;.0f&quot;</span><span class="p">,</span> <span class="s2">&quot;.0f&quot;</span><span class="p">,</span> <span class="s2">&quot;.0f&quot;</span><span class="p">,</span> <span class="s2">&quot;.1%&quot;</span><span class="p">),</span>
+            <span class="p">),</span>
+        <span class="p">)</span>
+
+        <span class="n">res_table</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="p">(</span><span class="s2">&quot;SNN&quot;</span><span class="p">,</span> <span class="n">snn_flops</span> <span class="o">*</span> <span class="mi">10</span><span class="o">**-</span><span class="mi">6</span><span class="p">,</span> <span class="n">snn_energy</span> <span class="o">*</span> <span class="mi">10</span><span class="o">**-</span><span class="mi">6</span><span class="p">,</span> <span class="n">activity</span><span class="p">),</span>
+            <span class="p">(</span><span class="s2">&quot;Similar ANN&quot;</span><span class="p">,</span> <span class="n">ann_flops</span> <span class="o">*</span> <span class="mi">10</span><span class="o">**-</span><span class="mi">6</span><span class="p">,</span> <span class="n">ann_energy</span> <span class="o">*</span> <span class="mi">10</span><span class="o">**-</span><span class="mi">6</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
+            <span class="p">(</span><span class="s2">&quot;Diff&quot;</span><span class="p">,</span> <span class="n">diff_flops</span> <span class="o">*</span> <span class="mi">10</span><span class="o">**-</span><span class="mi">6</span><span class="p">,</span> <span class="n">diff_energy</span> <span class="o">*</span> <span class="mi">10</span><span class="o">**-</span><span class="mi">6</span><span class="p">),</span>
+        <span class="p">]</span>
+        <span class="nb">print</span><span class="p">(</span>
+            <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Results:</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span>
+            <span class="n">tabulate</span><span class="p">(</span>
+                <span class="n">res_table</span><span class="p">,</span>
+                <span class="n">headers</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Type&quot;</span><span class="p">,</span> <span class="s2">&quot;MFLOP&quot;</span><span class="p">,</span> <span class="s2">&quot;Energy (uJ)&quot;</span><span class="p">,</span> <span class="s2">&quot;Activity&quot;</span><span class="p">],</span>
+                <span class="n">floatfmt</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;.0f&quot;</span><span class="p">,</span> <span class="s2">&quot;.0f&quot;</span><span class="p">,</span> <span class="s2">&quot;.2f&quot;</span><span class="p">,</span> <span class="s2">&quot;.1%&quot;</span><span class="p">),</span>
+            <span class="p">),</span>
+        <span class="p">)</span>
+
+        <span class="nb">print</span><span class="p">(</span>
+            <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Reduction in consumption compared to ANN:</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span>
+            <span class="n">tabulate</span><span class="p">(</span>
+                <span class="p">[</span>
+                    <span class="p">[</span><span class="s2">&quot;FLOP &quot;</span><span class="p">,</span> <span class="n">ann_flops</span> <span class="o">/</span> <span class="n">snn_flops</span><span class="p">],</span>
+                    <span class="p">[</span><span class="s2">&quot;Energy &quot;</span><span class="p">,</span> <span class="n">ann_energy</span> <span class="o">/</span> <span class="n">snn_energy</span><span class="p">],</span>
+                <span class="p">],</span>
+                <span class="n">headers</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Value&quot;</span><span class="p">,</span> <span class="s2">&quot;Decrease&quot;</span><span class="p">],</span>
+                <span class="n">floatfmt</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;.0f&quot;</span><span class="p">,</span> <span class="s2">&quot;.2f&quot;</span><span class="p">),</span>
+            <span class="p">),</span>
+        <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="EstimateEnergy.estimate_snn">
+<a class="viewcode-back" href="../../_autosummary/scripts.estimate_energy.EstimateEnergy.html#scripts.estimate_energy.EstimateEnergy.estimate_snn">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">estimate_snn</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">model</span><span class="p">:</span> <span class="n">ModelGenerator</span><span class="p">,</span> <span class="nb">input</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">):</span>
+        <span class="n">time</span> <span class="o">=</span> <span class="nb">input</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">state</span> <span class="o">=</span> <span class="p">[</span><span class="kc">None</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">net</span><span class="p">)</span>
+        <span class="n">flops_list</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">net</span><span class="p">)</span>
+        <span class="n">activity_list</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">net</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">ts</span><span class="p">,</span> <span class="n">data</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">tqdm</span><span class="p">(</span><span class="nb">input</span><span class="p">,</span> <span class="n">leave</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="s2">&quot;Processing&quot;</span><span class="p">)):</span>
+            <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="p">(</span><span class="n">layer</span><span class="p">,</span> <span class="n">is_state</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">net</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">state_layers</span><span class="p">)):</span>
+                <span class="k">if</span> <span class="n">is_state</span><span class="p">:</span>
+                    <span class="n">data</span><span class="p">,</span> <span class="n">state</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="o">=</span> <span class="n">layer</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">state</span><span class="p">[</span><span class="n">idx</span><span class="p">])</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">data</span> <span class="o">=</span> <span class="n">layer</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">ts</span> <span class="o">&lt;</span> <span class="p">(</span><span class="n">time</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">delta_time</span> <span class="o">-</span> <span class="mi">1</span><span class="p">):</span>
+                    <span class="k">continue</span>
+                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">layer</span><span class="p">,</span> <span class="n">LIFCell</span><span class="p">):</span>
+                    <span class="n">activity_list</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">compute_activity</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+                    <span class="n">flops_list</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="o">=</span> <span class="n">flops_list</span><span class="p">[</span><span class="n">idx</span> <span class="o">-</span> <span class="mi">2</span><span class="p">]</span>
+                <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">layer</span><span class="p">,</span> <span class="n">LICell</span><span class="p">):</span>
+                    <span class="n">activity_list</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="o">=</span> <span class="n">activity_list</span><span class="p">[</span><span class="n">idx</span> <span class="o">-</span> <span class="mi">3</span><span class="p">]</span>
+                    <span class="n">flops_list</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="o">=</span> <span class="n">flops_list</span><span class="p">[</span><span class="n">idx</span> <span class="o">-</span> <span class="mi">2</span><span class="p">]</span>
+                <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">layer</span><span class="p">,</span> <span class="n">nn</span><span class="o">.</span><span class="n">Conv2d</span><span class="p">):</span>
+                    <span class="k">if</span> <span class="ow">not</span> <span class="n">flops_list</span><span class="p">[</span><span class="n">idx</span><span class="p">]:</span>
+                        <span class="n">flops_list</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">compute_flops</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">layer</span><span class="p">)</span>
+
+        <span class="n">activity_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">activity</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">delta_time</span> <span class="k">for</span> <span class="n">activity</span> <span class="ow">in</span> <span class="n">activity_list</span><span class="p">]</span>
+
+        <span class="k">return</span> <span class="n">flops_list</span><span class="p">,</span> <span class="n">activity_list</span></div>
+
+
+<div class="viewcode-block" id="EstimateEnergy.estimate_ann">
+<a class="viewcode-back" href="../../_autosummary/scripts.estimate_energy.EstimateEnergy.html#scripts.estimate_energy.EstimateEnergy.estimate_ann">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">estimate_ann</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">model</span><span class="p">:</span> <span class="n">ModelGenerator</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">):</span>
+        <span class="n">flops_list</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">net</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="p">(</span><span class="n">layer</span><span class="p">,</span> <span class="n">is_state</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">net</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">state_layers</span><span class="p">)):</span>
+            <span class="k">if</span> <span class="n">is_state</span><span class="p">:</span>
+                <span class="n">data</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">layer</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">data</span> <span class="o">=</span> <span class="n">layer</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">layer</span><span class="p">,</span> <span class="n">nn</span><span class="o">.</span><span class="n">SiLU</span><span class="p">):</span>
+                <span class="n">flops_list</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="o">=</span> <span class="n">flops_list</span><span class="p">[</span><span class="n">idx</span> <span class="o">-</span> <span class="mi">2</span><span class="p">]</span>
+            <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">layer</span><span class="p">,</span> <span class="n">nn</span><span class="o">.</span><span class="n">Conv2d</span><span class="p">):</span>
+                <span class="n">flops_list</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">compute_flops</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">layer</span><span class="p">)</span>
+        <span class="k">return</span> <span class="nb">sum</span><span class="p">(</span><span class="n">flops_list</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="EstimateEnergy.compute_flops">
+<a class="viewcode-back" href="../../_autosummary/scripts.estimate_energy.EstimateEnergy.html#scripts.estimate_energy.EstimateEnergy.compute_flops">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">compute_flops</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tensor</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">conv</span><span class="p">:</span> <span class="n">nn</span><span class="o">.</span><span class="n">Conv2d</span><span class="p">):</span>
+        <span class="n">h</span><span class="p">,</span> <span class="n">w</span> <span class="o">=</span> <span class="n">tensor</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">:]</span>
+        <span class="n">k</span><span class="p">,</span> <span class="n">c_i</span><span class="p">,</span> <span class="n">c_o</span> <span class="o">=</span> <span class="n">conv</span><span class="o">.</span><span class="n">kernel_size</span><span class="p">,</span> <span class="n">conv</span><span class="o">.</span><span class="n">in_channels</span><span class="p">,</span> <span class="n">conv</span><span class="o">.</span><span class="n">out_channels</span>
+        <span class="n">flops</span> <span class="o">=</span> <span class="p">(</span><span class="n">k</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">^</span> <span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="n">h</span> <span class="o">*</span> <span class="n">w</span> <span class="o">*</span> <span class="n">c_i</span> <span class="o">*</span> <span class="n">c_o</span>
+        <span class="k">return</span> <span class="n">flops</span></div>
+
+
+<div class="viewcode-block" id="EstimateEnergy.compute_activity">
+<a class="viewcode-back" href="../../_autosummary/scripts.estimate_energy.EstimateEnergy.html#scripts.estimate_energy.EstimateEnergy.compute_activity">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">compute_activity</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">spikes</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">):</span>
+        <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">spikes</span><span class="o">.</span><span class="n">shape</span>
+        <span class="n">volume</span> <span class="o">=</span> <span class="n">b</span> <span class="o">*</span> <span class="n">c</span> <span class="o">*</span> <span class="n">x</span> <span class="o">*</span> <span class="n">y</span>
+        <span class="n">activity</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">count_nonzero</span><span class="p">(</span><span class="n">spikes</span><span class="p">)</span> <span class="o">/</span> <span class="n">volume</span>
+        <span class="k">return</span> <span class="n">activity</span><span class="o">.</span><span class="n">item</span><span class="p">()</span></div>
+</div>
+
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">cli</span> <span class="o">=</span> <span class="n">LightningCLI</span><span class="p">(</span>
+        <span class="n">model</span><span class="o">.</span><span class="n">Detector</span><span class="p">,</span>
+        <span class="n">L</span><span class="o">.</span><span class="n">LightningDataModule</span><span class="p">,</span>
+        <span class="n">subclass_mode_model</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">subclass_mode_data</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">save_config_kwargs</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;overwrite&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">},</span>
+        <span class="n">run</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="n">cli</span><span class="o">.</span><span class="n">trainer</span><span class="o">.</span><span class="n">limit_test_batches</span> <span class="o">=</span> <span class="mi">2</span>
+    <span class="n">cli</span><span class="o">.</span><span class="n">trainer</span><span class="o">.</span><span class="n">test</span><span class="p">(</span><span class="n">cli</span><span class="o">.</span><span class="n">model</span><span class="p">,</span> <span class="n">datamodule</span><span class="o">=</span><span class="n">cli</span><span class="o">.</span><span class="n">datamodule</span><span class="p">)</span>
+
+    <span class="n">dataloader</span> <span class="o">=</span> <span class="n">cli</span><span class="o">.</span><span class="n">datamodule</span><span class="o">.</span><span class="n">test_dataloader</span><span class="p">()</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Starting to calculate energy efficiency...</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">estimator</span> <span class="o">=</span> <span class="n">EstimateEnergy</span><span class="p">(</span><span class="n">quiet</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="n">n</span> <span class="o">=</span> <span class="mi">10</span>
+    <span class="n">data_iter</span> <span class="o">=</span> <span class="nb">iter</span><span class="p">(</span><span class="n">dataloader</span><span class="p">)</span>
+    <span class="n">snn_energy_list</span><span class="p">,</span> <span class="n">ann_energy_list</span><span class="p">,</span> <span class="n">activity_list</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[],</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">tqdm</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">),</span> <span class="n">desc</span><span class="o">=</span><span class="s2">&quot;Sample&quot;</span><span class="p">):</span>
+        <span class="n">snn_energy</span><span class="p">,</span> <span class="n">ann_energy</span><span class="p">,</span> <span class="n">activity</span> <span class="o">=</span> <span class="n">estimator</span><span class="o">.</span><span class="n">process</span><span class="p">(</span><span class="n">cli</span><span class="o">.</span><span class="n">model</span><span class="p">,</span> <span class="nb">next</span><span class="p">(</span><span class="n">data_iter</span><span class="p">))</span>
+        <span class="n">snn_energy_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">snn_energy</span><span class="p">)</span>
+        <span class="n">ann_energy_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ann_energy</span><span class="p">)</span>
+        <span class="n">activity_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">activity</span><span class="p">)</span>
+
+    <span class="nb">print</span><span class="p">(</span>
+        <span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Results for </span><span class="si">{</span><span class="n">n</span><span class="si">}</span><span class="s2"> samples</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span>
+        <span class="n">tabulate</span><span class="p">(</span>
+            <span class="p">[</span>
+                <span class="p">[</span><span class="s2">&quot;SNN (mJ)&quot;</span><span class="p">,</span> <span class="n">mean</span><span class="p">(</span><span class="n">snn_energy_list</span><span class="p">)</span> <span class="o">*</span> <span class="mi">10</span><span class="o">**-</span><span class="mi">9</span><span class="p">],</span>
+                <span class="p">[</span><span class="s2">&quot;Activity (%)&quot;</span><span class="p">,</span> <span class="n">mean</span><span class="p">(</span><span class="n">activity_list</span><span class="p">)</span> <span class="o">*</span> <span class="mi">100</span><span class="p">],</span>
+                <span class="p">[</span><span class="s2">&quot;Similar ANN (mJ)&quot;</span><span class="p">,</span> <span class="n">mean</span><span class="p">(</span><span class="n">ann_energy_list</span><span class="p">)</span> <span class="o">*</span> <span class="mi">10</span><span class="o">**-</span><span class="mi">9</span><span class="p">],</span>
+                <span class="p">[</span><span class="s2">&quot;Decrease&quot;</span><span class="p">,</span> <span class="n">mean</span><span class="p">(</span><span class="n">ann_energy_list</span><span class="p">)</span> <span class="o">/</span> <span class="n">mean</span><span class="p">(</span><span class="n">snn_energy_list</span><span class="p">)],</span>
+            <span class="p">],</span>
+            <span class="n">floatfmt</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;.0f&quot;</span><span class="p">,</span> <span class="s2">&quot;.2f&quot;</span><span class="p">),</span>
+        <span class="p">),</span>
+    <span class="p">)</span>
+</pre></div>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Kirill Hitushkin
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2025, Kirill Hitushkin.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

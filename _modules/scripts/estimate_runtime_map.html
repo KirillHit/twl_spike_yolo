@@ -1,0 +1,670 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" data-theme="dark">
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>scripts.estimate_runtime_map &#8212; TWL Spike Yolo v0.1.0 documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "dark";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "dark";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../../_static/documentation_options.js?v=d47532a6"></script>
+    <script src="../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '_modules/scripts/estimate_runtime_map';</script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="dark">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">TWL Spike Yolo v0.1.0 documentation</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Content</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../readme.html">Quick Start</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../pages/config.html">Configuration files</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../api.html">API</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../_autosummary/model.html">model</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../_autosummary/model.detector.html">model.detector</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../_autosummary/model.detector.Detector.html">model.detector.Detector</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../_autosummary/model.modules.html">model.modules</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../_autosummary/model.modules.current_encoder.html">model.modules.current_encoder</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../_autosummary/model.modules.lstm.html">model.modules.lstm</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../_autosummary/model.modules.sli.html">model.modules.sli</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../_autosummary/model.modules.sum_pool.html">model.modules.sum_pool</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../_autosummary/model.modules.synapse.html">model.modules.synapse</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../_autosummary/model.nets.html">model.nets</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../_autosummary/model.nets.multimodal_yolo.html">model.nets.multimodal_yolo</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../_autosummary/model.nets.yolo.html">model.nets.yolo</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../_autosummary/model.tools.html">model.tools</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../_autosummary/model.tools.generator.html">model.tools.generator</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../_autosummary/model.tools.layers.html">model.tools.layers</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../_autosummary/utils.html">utils</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../_autosummary/utils.box.html">utils.box</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../_autosummary/utils.box.box_center_to_corner.html">utils.box.box_center_to_corner</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../_autosummary/utils.box.box_corner_to_center.html">utils.box.box_corner_to_center</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../_autosummary/utils.box.box_iou.html">utils.box.box_iou</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../_autosummary/utils.box.multibox_detection.html">utils.box.multibox_detection</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../_autosummary/utils.box.nms.html">utils.box.nms</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../_autosummary/utils.box.offset_boxes.html">utils.box.offset_boxes</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../_autosummary/utils.box.offset_inverse.html">utils.box.offset_inverse</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../_autosummary/utils.dataset_dsec.html">utils.dataset_dsec</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../_autosummary/utils.dataset_dsec.CurrentEncode.html">utils.dataset_dsec.CurrentEncode</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../_autosummary/utils.dataset_dsec.DSECDataModule.html">utils.dataset_dsec.DSECDataModule</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../_autosummary/utils.dataset_dsec.DSECDataset.html">utils.dataset_dsec.DSECDataset</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../_autosummary/utils.dataset_dsec.DSECDatasetIter.html">utils.dataset_dsec.DSECDatasetIter</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../_autosummary/utils.dataset_dsec.Gamma.html">utils.dataset_dsec.Gamma</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../_autosummary/utils.dataset_dsec.ImageGradient.html">utils.dataset_dsec.ImageGradient</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../_autosummary/utils.dataset_prophesee.html">utils.dataset_prophesee</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../_autosummary/utils.dataset_prophesee.PropheseeDataModule.html">utils.dataset_prophesee.PropheseeDataModule</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../_autosummary/utils.dataset_prophesee.PropheseeDataset.html">utils.dataset_prophesee.PropheseeDataset</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../_autosummary/utils.plotter.html">utils.plotter</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../_autosummary/utils.plotter.Plotter.html">utils.plotter.Plotter</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../_autosummary/utils.roi.html">utils.roi</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../_autosummary/utils.roi.RoI.html">utils.roi.RoI</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../_autosummary/scripts.html">scripts</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../_autosummary/scripts.estimate_activity.html">scripts.estimate_activity</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../_autosummary/scripts.estimate_activity.Statics.html">scripts.estimate_activity.Statics</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../_autosummary/scripts.estimate_energy.html">scripts.estimate_energy</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../_autosummary/scripts.estimate_energy.EstimateEnergy.html">scripts.estimate_energy.EstimateEnergy</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../_autosummary/scripts.estimate_runtime_map.html">scripts.estimate_runtime_map</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../_autosummary/scripts.estimate_runtime_map.map_estimate.html">scripts.estimate_runtime_map.map_estimate</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../_autosummary/scripts.estimate_runtime_map.PropheseeRuntimeDataset.html">scripts.estimate_runtime_map.PropheseeRuntimeDataset</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+<a href="https://github.com/KirillHit/twl_spike_yolo" target="_blank"
+   class="btn btn-sm btn-source-repository-button"
+   title="Source repository"
+   data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+
+</a>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1></h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <h1>Source code for scripts.estimate_runtime_map</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">glob</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Union</span><span class="p">,</span> <span class="n">Generator</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">torch.utils.data</span><span class="w"> </span><span class="kn">import</span> <span class="n">IterableDataset</span><span class="p">,</span> <span class="n">DataLoader</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">torchvision.transforms</span><span class="w"> </span><span class="kn">import</span> <span class="n">v2</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">utils.prophesee_toolbox.src.io.psee_loader</span><span class="w"> </span><span class="kn">import</span> <span class="n">PSEELoader</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">model</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">md</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">utils.plotter</span><span class="w"> </span><span class="kn">import</span> <span class="n">Plotter</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">cv2</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">tqdm</span><span class="w"> </span><span class="kn">import</span> <span class="n">tqdm</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">torchmetrics.detection</span>
+
+
+<div class="viewcode-block" id="PropheseeRuntimeDataset">
+<a class="viewcode-back" href="../../_autosummary/scripts.estimate_runtime_map.PropheseeRuntimeDataset.html#scripts.estimate_runtime_map.PropheseeRuntimeDataset">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">PropheseeRuntimeDataset</span><span class="p">(</span><span class="n">IterableDataset</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">dataset</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">root</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">split</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">time_step_us</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">2000</span><span class="p">,</span>
+        <span class="n">time_shift</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="n">resize</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="nb">int</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dataset</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">split</span> <span class="o">=</span> <span class="n">dataset</span><span class="p">,</span> <span class="n">root</span><span class="p">,</span> <span class="n">split</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">time_step_us</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">time_shift</span> <span class="o">=</span> <span class="n">time_step_us</span><span class="p">,</span> <span class="n">time_shift</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">resize</span> <span class="o">=</span> <span class="n">resize</span>
+
+        <span class="k">match</span> <span class="bp">self</span><span class="o">.</span><span class="n">dataset</span><span class="p">:</span>
+            <span class="k">case</span> <span class="s2">&quot;gen1&quot;</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">height</span> <span class="o">=</span> <span class="mi">240</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">width</span> <span class="o">=</span> <span class="mi">304</span>
+            <span class="k">case</span> <span class="s2">&quot;1mpx&quot;</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">height</span> <span class="o">=</span> <span class="mi">720</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">width</span> <span class="o">=</span> <span class="mi">1280</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_remap_1mpx</span><span class="p">()</span>
+            <span class="k">case</span><span class="w"> </span><span class="k">_</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;The dataset parameter cannot be &quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">dataset</span><span class="si">}</span><span class="s1">&quot;!&#39;</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_prepare_resize</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_get_files_list</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_prepare_properties</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_preprocess_labels</span><span class="p">()</span>
+
+<div class="viewcode-block" id="PropheseeRuntimeDataset.__iter__">
+<a class="viewcode-back" href="../../_autosummary/scripts.estimate_runtime_map.PropheseeRuntimeDataset.html#scripts.estimate_runtime_map.PropheseeRuntimeDataset.__iter__">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">iter</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">samples_generator</span><span class="p">())</span></div>
+
+
+<div class="viewcode-block" id="PropheseeRuntimeDataset.samples_generator">
+<a class="viewcode-back" href="../../_autosummary/scripts.estimate_runtime_map.PropheseeRuntimeDataset.html#scripts.estimate_runtime_map.PropheseeRuntimeDataset.samples_generator">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">samples_generator</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Generator</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">],</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">]:</span>
+        <span class="k">for</span> <span class="n">data_file</span><span class="p">,</span> <span class="n">labels_list</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data_files</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">labels_list</span><span class="p">):</span>
+            <span class="n">loader</span> <span class="o">=</span> <span class="n">PSEELoader</span><span class="p">(</span><span class="n">data_file</span><span class="p">)</span>
+            <span class="k">while</span> <span class="ow">not</span> <span class="n">loader</span><span class="o">.</span><span class="n">done</span><span class="p">:</span>
+                <span class="n">start_time</span> <span class="o">=</span> <span class="n">loader</span><span class="o">.</span><span class="n">current_time</span>
+                <span class="n">events</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_load_events</span><span class="p">(</span><span class="n">loader</span><span class="p">)</span>
+                <span class="n">events</span> <span class="o">=</span> <span class="n">events</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">resize</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">events</span><span class="p">)</span>
+                <span class="n">end_time</span> <span class="o">=</span> <span class="n">loader</span><span class="o">.</span><span class="n">current_time</span>
+                <span class="n">labels</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_load_labels</span><span class="p">(</span><span class="n">labels_list</span><span class="p">,</span> <span class="n">start_time</span><span class="p">,</span> <span class="n">end_time</span><span class="p">)</span>
+                <span class="k">yield</span> <span class="n">events</span><span class="p">,</span> <span class="n">labels</span>
+        <span class="k">raise</span> <span class="ne">StopIteration</span></div>
+
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_load_labels</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">labels_list</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">],</span> <span class="n">start_time</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">end_time</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+        <span class="n">mask</span> <span class="o">=</span> <span class="p">(</span><span class="n">labels_list</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">start_time</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">labels_list</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">end_time</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">labels_list</span><span class="p">[</span><span class="n">mask</span><span class="p">,</span> <span class="mi">1</span><span class="p">:]</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_get_files_list</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">data_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">dataset</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">split</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">labels_files</span> <span class="o">=</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="n">data_dir</span> <span class="o">+</span> <span class="s2">&quot;/*.npy&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">data_files</span> <span class="o">=</span> <span class="p">[</span><span class="n">p</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;_bbox.npy&quot;</span><span class="p">,</span> <span class="s2">&quot;_td.dat&quot;</span><span class="p">)</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">labels_files</span><span class="p">]</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">labels_files</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;Directory &#39;</span><span class="si">{</span><span class="n">data_dir</span><span class="si">}</span><span class="s2">&#39; does not contain data or data is invalid! I&#39;m expecting: &quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;./data/</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">dataset</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">data_dir</span><span class="si">}</span><span class="s2">/*_bbox.npy (and *_td.dat). &quot;</span>
+                <span class="s2">&quot;The datasets can be downloaded from these links: &quot;</span>
+                <span class="s2">&quot;https://www.prophesee.ai/2020/01/24/prophesee-gen1-automotive-detection-dataset/ or &quot;</span>
+                <span class="s2">&quot;https://www.prophesee.ai/2020/11/24/automotive-megapixel-event-based-dataset/&quot;</span>
+            <span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_prepare_properties</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">labels</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">labels_files</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="c1"># For some reason, the labels of the datasets gen1 and 1mpx are different</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ts_name</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">labels</span><span class="o">.</span><span class="n">dtype</span><span class="o">.</span><span class="n">fields</span><span class="o">.</span><span class="n">keys</span><span class="p">())[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">approx_len</span> <span class="o">=</span> <span class="p">(</span><span class="mi">60_000_000</span> <span class="o">//</span> <span class="bp">self</span><span class="o">.</span><span class="n">time_step_us</span><span class="p">)</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data_files</span><span class="p">)</span>
+        
+    <span class="k">def</span><span class="w"> </span><span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">approx_len</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_prepare_resize</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">resize</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">target_width</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">width</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">target_height</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">height</span>
+            <span class="k">return</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">transform</span> <span class="o">=</span> <span class="n">v2</span><span class="o">.</span><span class="n">Resize</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">resize</span><span class="p">,</span>
+            <span class="n">interpolation</span><span class="o">=</span><span class="n">v2</span><span class="o">.</span><span class="n">InterpolationMode</span><span class="o">.</span><span class="n">NEAREST</span><span class="p">,</span>
+        <span class="p">)</span>
+
+        <span class="n">target_ratio</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">resize</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">resize</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">target_width</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">width</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">height</span> <span class="o">*</span> <span class="n">target_ratio</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">target_height</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">target_width</span> <span class="o">/</span> <span class="n">target_ratio</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">target_height</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">height</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">target_height</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">height</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">width</span> <span class="o">/</span> <span class="n">target_ratio</span><span class="p">))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">target_width</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">target_height</span> <span class="o">*</span> <span class="n">target_ratio</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_preprocess_labels</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">labels_counts_maps</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">labels_starts_maps</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">labels_list</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">labels_len</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">labels_path</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">labels_files</span><span class="p">:</span>
+            <span class="n">labels</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_labels_prepare</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">labels_path</span><span class="p">))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">labels_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">from_numpy</span><span class="p">(</span><span class="n">labels</span><span class="p">))</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_labels_prepare</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">labels</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        :param labels: Labels in numpy format</span>
+<span class="sd">            (&#39;ts [us]&#39;, &#39;x&#39;, &#39;y&#39;, &#39;w&#39;, &#39;h&#39;, &#39;class_id&#39;, &#39;confidence&#39;, &#39;track_id&#39;)</span>
+<span class="sd">        :type labels: np.ndarray</span>
+<span class="sd">        :return: Labels in format (ts [ms], class id, xlu, ylu, xrd, yrd)</span>
+<span class="sd">        :rtype: np.ndarray</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">remapped_cls</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">remap_lut</span><span class="p">[</span><span class="n">labels</span><span class="p">[:][</span><span class="s2">&quot;class_id&quot;</span><span class="p">]]</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">dataset</span> <span class="o">==</span> <span class="s2">&quot;1mpx&quot;</span>
+            <span class="k">else</span> <span class="n">labels</span><span class="p">[:][</span><span class="s2">&quot;class_id&quot;</span><span class="p">]</span>
+        <span class="p">)</span>
+        <span class="n">prep_labels</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
+            <span class="p">[</span>
+                <span class="n">labels</span><span class="p">[:][</span><span class="bp">self</span><span class="o">.</span><span class="n">ts_name</span><span class="p">],</span>
+                <span class="n">remapped_cls</span><span class="p">,</span>
+                <span class="n">labels</span><span class="p">[:][</span><span class="s2">&quot;x&quot;</span><span class="p">]</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">target_width</span><span class="p">,</span>
+                <span class="n">labels</span><span class="p">[:][</span><span class="s2">&quot;y&quot;</span><span class="p">]</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">target_height</span><span class="p">,</span>
+                <span class="p">(</span><span class="n">labels</span><span class="p">[:][</span><span class="s2">&quot;x&quot;</span><span class="p">]</span> <span class="o">+</span> <span class="n">labels</span><span class="p">[:][</span><span class="s2">&quot;w&quot;</span><span class="p">])</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">target_width</span><span class="p">,</span>
+                <span class="p">(</span><span class="n">labels</span><span class="p">[:][</span><span class="s2">&quot;y&quot;</span><span class="p">]</span> <span class="o">+</span> <span class="n">labels</span><span class="p">[:][</span><span class="s2">&quot;h&quot;</span><span class="p">])</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">target_height</span><span class="p">,</span>
+            <span class="p">],</span>
+            <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">,</span>
+        <span class="p">)</span><span class="o">.</span><span class="n">T</span>
+        <span class="k">return</span> <span class="n">prep_labels</span><span class="p">[</span><span class="n">prep_labels</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">]</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_load_events</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">loader</span><span class="p">:</span> <span class="n">PSEELoader</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
+        <span class="n">events_list</span> <span class="o">=</span> <span class="n">loader</span><span class="o">.</span><span class="n">load_delta_t</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">time_step_us</span><span class="p">)</span>
+
+        <span class="c1"># For some reason in 1mpx there are events that go beyond the frame boundaries</span>
+        <span class="n">events_list</span><span class="p">[:][</span><span class="s2">&quot;x&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">events_list</span><span class="p">[:][</span><span class="s2">&quot;x&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">width</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+
+        <span class="c1"># Return events format (ts, c [0-negative, 1-positive], h, w)</span>
+        <span class="n">events_out</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span>
+            <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">target_height</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">target_width</span><span class="p">],</span>
+            <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">float32</span><span class="p">,</span>
+        <span class="p">)</span>
+
+        <span class="n">events_out</span><span class="p">[</span>
+            <span class="n">events_list</span><span class="p">[:][</span><span class="s2">&quot;p&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">uint32</span><span class="p">),</span>
+            <span class="n">events_list</span><span class="p">[:][</span><span class="s2">&quot;y&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">uint32</span><span class="p">),</span>
+            <span class="n">events_list</span><span class="p">[:][</span><span class="s2">&quot;x&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">uint32</span><span class="p">),</span>
+        <span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+
+        <span class="k">return</span> <span class="n">events_out</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_remap_1mpx</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">remap</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;pedestrians&quot;</span><span class="p">:</span> <span class="s2">&quot;person&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;two wheelers&quot;</span><span class="p">:</span> <span class="s2">&quot;person&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;cars&quot;</span><span class="p">:</span> <span class="s2">&quot;car&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;trucks&quot;</span><span class="p">:</span> <span class="s2">&quot;car&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;buses&quot;</span><span class="p">:</span> <span class="s2">&quot;car&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;signs&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="s2">&quot;traffic lights&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="p">}</span>
+        <span class="n">target</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;car&quot;</span><span class="p">,</span> <span class="s2">&quot;person&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">remap_lut</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">remap</span><span class="o">.</span><span class="n">keys</span><span class="p">()))</span>
+        <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">remap</span><span class="o">.</span><span class="n">keys</span><span class="p">(),</span> <span class="n">remap</span><span class="o">.</span><span class="n">values</span><span class="p">()):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">remap_lut</span><span class="p">[</span><span class="nb">list</span><span class="p">(</span><span class="n">remap</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">key</span><span class="p">)]</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="n">target</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="k">if</span> <span class="n">value</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="o">-</span><span class="mi">1</span>
+            <span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="map_estimate">
+<a class="viewcode-back" href="../../_autosummary/scripts.estimate_runtime_map.map_estimate.html#scripts.estimate_runtime_map.map_estimate">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">map_estimate</span><span class="p">(</span>
+    <span class="n">metric</span><span class="p">:</span> <span class="n">torchmetrics</span><span class="o">.</span><span class="n">detection</span><span class="o">.</span><span class="n">MeanAveragePrecision</span><span class="p">,</span>
+    <span class="n">preds</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span>
+    <span class="n">labels</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span>
+<span class="p">):</span>
+    <span class="n">map_preds</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">map_target</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">map_preds</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+        <span class="p">{</span>
+            <span class="s2">&quot;boxes&quot;</span><span class="p">:</span> <span class="n">preds</span><span class="p">[:,</span> <span class="mi">2</span><span class="p">:],</span>
+            <span class="s2">&quot;scores&quot;</span><span class="p">:</span> <span class="n">preds</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span>
+            <span class="s2">&quot;labels&quot;</span><span class="p">:</span> <span class="n">preds</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">type</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">IntTensor</span><span class="p">),</span>
+        <span class="p">}</span>
+    <span class="p">)</span>
+    <span class="n">map_target</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+        <span class="p">{</span>
+            <span class="s2">&quot;boxes&quot;</span><span class="p">:</span> <span class="n">labels</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">:],</span>
+            <span class="s2">&quot;labels&quot;</span><span class="p">:</span> <span class="n">labels</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">type</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">IntTensor</span><span class="p">),</span>
+        <span class="p">}</span>
+    <span class="p">)</span>
+    <span class="n">metric</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">map_preds</span><span class="p">,</span> <span class="n">map_target</span><span class="p">)</span></div>
+
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">model</span> <span class="o">=</span> <span class="n">md</span><span class="o">.</span><span class="n">Yolo</span><span class="o">.</span><span class="n">load_from_checkpoint</span><span class="p">(</span>
+        <span class="s2">&quot;.neptune/yolo8m_gen1/SODA-442/checkpoints/epoch=2-step=25002.ckpt&quot;</span>
+    <span class="p">)</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="s2">&quot;cuda&quot;</span><span class="p">)</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">eval</span><span class="p">()</span>
+
+    <span class="n">dataset</span> <span class="o">=</span> <span class="n">PropheseeRuntimeDataset</span><span class="p">(</span>
+        <span class="s2">&quot;gen1&quot;</span><span class="p">,</span> <span class="s2">&quot;/media/ubuntu/neuro/datasets/data&quot;</span><span class="p">,</span> <span class="s2">&quot;test&quot;</span><span class="p">,</span> <span class="mi">8000</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="p">[</span><span class="mi">256</span><span class="p">,</span> <span class="mi">320</span><span class="p">]</span>
+    <span class="p">)</span>
+    <span class="n">dataloader</span> <span class="o">=</span> <span class="n">DataLoader</span><span class="p">(</span><span class="n">dataset</span><span class="p">)</span>
+    <span class="n">dataloader_iter</span> <span class="o">=</span> <span class="nb">iter</span><span class="p">(</span><span class="n">dataloader</span><span class="p">)</span>
+
+    <span class="n">plotter</span> <span class="o">=</span> <span class="n">Plotter</span><span class="p">(</span><span class="mf">0.9</span><span class="p">)</span>
+
+    <span class="n">map_metric</span> <span class="o">=</span> <span class="n">torchmetrics</span><span class="o">.</span><span class="n">detection</span><span class="o">.</span><span class="n">MeanAveragePrecision</span><span class="p">(</span>
+        <span class="n">box_format</span><span class="o">=</span><span class="s2">&quot;xyxy&quot;</span><span class="p">,</span> <span class="n">iou_type</span><span class="o">=</span><span class="s2">&quot;bbox&quot;</span><span class="p">,</span> <span class="n">backend</span><span class="o">=</span><span class="s2">&quot;faster_coco_eval&quot;</span>
+    <span class="p">)</span>
+
+    <span class="n">state</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">events</span><span class="p">,</span> <span class="n">labels</span> <span class="ow">in</span> <span class="n">tqdm</span><span class="p">(</span><span class="n">dataloader_iter</span><span class="p">,</span> <span class="n">total</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">dataset</span><span class="p">)):</span>
+            <span class="n">events</span> <span class="o">=</span> <span class="n">events</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="s2">&quot;cuda&quot;</span><span class="p">)</span>
+            <span class="n">labels</span> <span class="o">=</span> <span class="n">labels</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="s2">&quot;cuda&quot;</span><span class="p">)</span>
+            <span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">no_grad</span><span class="p">():</span>
+                <span class="n">preds</span><span class="p">,</span> <span class="n">state</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">events</span><span class="p">,</span> <span class="n">state</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">labels</span><span class="o">.</span><span class="n">numel</span><span class="p">():</span>
+                <span class="n">map_estimate</span><span class="p">(</span><span class="n">map_metric</span><span class="p">,</span> <span class="n">preds</span><span class="p">,</span> <span class="n">labels</span><span class="p">)</span>
+<span class="w">            </span><span class="sd">&quot;&quot;&quot; </span>
+<span class="sd">            img = plotter.apply(plotter.preprocess_events(events), preds, labels)</span>
+<span class="sd">            cv2.imshow(&quot;Res&quot;, img)</span>
+<span class="sd">            if cv2.waitKey(1) == ord(&quot;q&quot;):</span>
+<span class="sd">                break &quot;&quot;&quot;</span>
+    <span class="k">except</span> <span class="ne">KeyboardInterrupt</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Stop running!&quot;</span><span class="p">)</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">map_metric</span><span class="o">.</span><span class="n">compute</span><span class="p">()</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+</pre></div>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Kirill Hitushkin
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2025, Kirill Hitushkin.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
