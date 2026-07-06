@@ -168,7 +168,7 @@ class EstimateEnergy:
     def compute_flops(self, tensor: torch.Tensor, conv: nn.Conv2d):
         h, w = tensor.shape[-2:]
         k, c_i, c_o = conv.kernel_size, conv.in_channels, conv.out_channels
-        flops = (k[0] ^ 2) * h * w * c_i * c_o
+        flops = k[0] * k[1] * h * w * c_i * c_o
         return flops
 
     def compute_activity(self, spikes: torch.Tensor):
